@@ -17,3 +17,26 @@ export const searchUsers = async (text) => {
 
   return items;
 };
+
+export const getUser = async (login) => {
+  const response = await fetch(`${GITHUB_URL}/users/${login}`, {
+    headers: {
+      Authorization: `Bearer ${GITHUB_TOKEN}`,
+    },
+  });
+
+  if (response.status === 404) {
+    window.location = '/not-found';
+  }
+  return await response.json();
+};
+
+export const getRepos = async (login) => {
+  const response = await fetch(`${GITHUB_URL}/users/${login}/repos`, {
+    headers: {
+      Authorization: `Bearer ${GITHUB_TOKEN}`,
+    },
+  });
+
+  return await response.json();
+};
